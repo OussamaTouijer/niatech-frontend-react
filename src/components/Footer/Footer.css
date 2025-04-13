@@ -1,0 +1,57 @@
+/* Logo et image dans le footer */
+.logo {
+    height: auto;
+  }
+  .logo-img {
+    width: 4.5rem;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  /* Style principal du footer */
+  .footer {
+    padding-top: 70px;
+    padding-bottom: 30px;
+    background-color: #f8f9fa; /* Vous pouvez modifier cette couleur de fond pour mieux correspondre à votre charte */
+  }
+  
+  /* Texte du logo */
+  .footer .logo p {
+    color: var(--text-color, #333);
+  }
+  
+  /* Liens des réseaux sociaux */
+  .social__links span a {
+    text-decoration: none;
+    color: var(--heading-color, #000);
+    font-size: 1.2rem;
+  }
+  
+  /* Titres des sections du footer */
+  .footer__link-title {
+    color: var(--heading-color, #000);
+    margin-bottom: 1rem;
+  }
+  
+  /* Liens de navigation rapide */
+  .footer__quick-links a {
+    text-decoration: none;
+    color: var(--text-color, #333);
+    font-size: 1.1rem;
+  }
+  
+  /* Icônes dans les titres des sections */
+  .footer__quick-links h6 span i {
+    color: var(--secondary-color, #6c757d);
+    font-size: 1.1rem;
+  }
+  
+  /* Copyright */
+  .copyright {
+    color: var(--text-color, #333);
+    font-size: 1rem;
+  }
+  .copyright span {
+    color: var(--secondary-color, #6c757d);
+  }
+  

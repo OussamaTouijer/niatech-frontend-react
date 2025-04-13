@@ -1,0 +1,80 @@
+/* Features.css */
+
+/* Section globale */
+.features-section {
+    background-color: #000; /* Fond noir */
+    color: #fff;
+    padding: 80px 20px;
+  }
+  
+  /* Titres de section (utilisé par le composant Header, si non défini, peut être ciblé ici) */
+  .features-section .header,
+  .features-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  /* Grille de cartes */
+  .features-section .MuiGrid-container {
+    margin-top: 20px;
+  }
+  
+  /* Style des cartes de services */
+  .service-card {
+    background-color: #111; /* Fond légèrement plus clair que le fond global pour les cartes */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Effet au survol des cartes */
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Icônes des services */
+  .service-card .MuiSvgIcon-root {
+    font-size: 50px;
+    margin-bottom: 15px;
+  }
+  
+  /* Titre des services */
+  .service-card h6,
+  .service-card .MuiTypography-h6 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    font-weight: 700;
+  }
+  
+  /* Description des services */
+  .service-card p,
+  .service-card .MuiTypography-body1 {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.8;
+  }
+  
+  /* Pour un espacement supplémentaire sur mobile */
+  @media (max-width: 600px) {
+    .features-section {
+      padding: 60px 10px;
+    }
+  
+    .service-card {
+      padding: 20px;
+    }
+  
+    .features-section .header,
+    .features-section h2 {
+      font-size: 2rem;
+    }
+  }
+  
