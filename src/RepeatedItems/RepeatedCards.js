@@ -1,37 +1,49 @@
-import React from 'react'
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
+import './RepeatedCards.css';
 
+const RepeatedCards = ({ title, description, image, features, category }) => {
+  const [isHovered, setIsHovered] = useState(false);
 
-const RepeatedCards = (props) => {
   return (
-    <Card sx={{ maxWidth: 345 ,marginRight :3}}>
-    <CardMedia
-      sx={{ height: 140 }}
-      image={[props.image]}
-      title="green iguana"
-    />
-    <CardContent>
+    <div 
+      className={`repeated-card ${isHovered ? 'hovered' : ''}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="card-badge">{category}</div>
+      
+      <div className="card-image-container">
+        <img src={image} alt={title} className="card-image" />
+        <div className="card-image-overlay"></div>
+      </div>
+      
+      <div className="card-content">
+        <h3 className="card-title">{title}</h3>
+        <p className="card-description">{description}</p>
+        
+        {features && (
+          <div className="card-features">
+            <h4 className="features-title">Ce service inclut :</h4>
+            <ul className="features-list">
+              {features.map((feature, index) => (
+                <li key={index} className="feature-item">
+                  <span className="feature-icon">✓</span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        <button className="card-button">
+          En savoir plus
+          <svg className="button-arrow" viewBox="0 0 24 24" width="14" height="14">
+            <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+};
 
-      <Typography gutterBottom variant="h5" component="div">
-        {props.title}
-      </Typography>
-      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        {props.description}
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Share</Button>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </Card>
-
-
-  )
-}
-
-export default RepeatedCards
+export default RepeatedCards;

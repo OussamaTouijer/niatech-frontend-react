@@ -1,0 +1,185 @@
+/* RepeatedCards.css - Styles pour les cartes de service individuelles */
+
+.repeated-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .repeated-card.hovered {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+  }
+  
+  /* Badge de catégorie */
+  .card-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(33, 150, 243, 0.9);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Conteneur d'image avec overlay */
+  .card-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 180px;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  .hovered .card-image {
+    transform: scale(1.05);
+  }
+  
+  .card-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  .hovered .card-image-overlay {
+    opacity: 0.5;
+  }
+  
+  /* Contenu de la carte */
+  .card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .card-title {
+    margin: 0 0 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+    padding-bottom: 12px;
+  }
+  
+  .card-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, #2196f3, #64b5f6);
+    transition: width 0.3s ease;
+  }
+  
+  .hovered .card-title::after {
+    width: 60px;
+  }
+  
+  .card-description {
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    flex-grow: 1;
+  }
+  
+  /* Caractéristiques du service */
+  .card-features {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .features-title {
+    font-size: 14px;
+    margin: 0 0 10px;
+    color: #555;
+  }
+  
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .feature-icon {
+    color: #2196f3;
+    margin-right: 8px;
+    font-weight: bold;
+  }
+  
+  /* Bouton */
+  .card-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #2196f3;
+    border: 2px solid #2196f3;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: auto;
+  }
+  
+  .button-arrow {
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+  }
+  
+  .hovered .card-button {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .hovered .button-arrow {
+    transform: translateX(4px);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card-title {
+      font-size: 18px;
+    }
+    
+    .card-description {
+      font-size: 14px;
+    }
+    
+    .card-content {
+      padding: 20px;
+    }
+  }

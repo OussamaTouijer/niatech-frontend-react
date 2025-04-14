@@ -1,12 +1,12 @@
 .main{
 
-    background-color: #040203;
+    background-color: #eaeaea;
 }
 
 .container{
 
     width: 80%;
     margin: 0 auto;
-    
+    margin-top: 0px;
 
 }
