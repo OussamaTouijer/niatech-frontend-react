@@ -1,9 +1,532 @@
-.banner{
-
-    background: url('../../assets/images/banner.jpg') no-repeat center center/cover;
+/* -----------------------------------------
+   VARIABLES ET CONFIGURATION GÉNÉRALE
+----------------------------------------- */
+:root {
+    /* Palette de couleurs */
+    --color-primary: #2196f3;
+    --color-primary-light: #90caf9;
+    --color-primary-dark: #1a237e;
+    --color-secondary: #7e57c2;
+    --color-background-start: #1a237e;
+    --color-background-mid: #283593;
+    --color-background-end: #3949ab;
+    --color-text: #ffffff;
+    --color-text-secondary: rgba(255, 255, 255, 0.8);
+    
+    /* Espacements */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 32px;
+    --space-xl: 40px;
+    --space-xxl: 80px;
+    
+    /* Typographie */
+    --font-primary: 'Roboto', 'Segoe UI', sans-serif;
+    --font-size-small: 0.75rem;
+    --font-size-body: 1rem;
+    --font-size-h6: 1.25rem;
+    --font-size-h5: 1.5rem;
+    --font-size-h2: 3rem;
+    
+    /* Animations */
+    --transition-fast: 0.3s ease;
+    --transition-medium: 0.5s ease;
+    --transition-slow: 1s ease;
+    
+    /* Z-index */
+    --z-background: 0;
+    --z-overlay: 1;
+    --z-content: 2;
+    --z-badge: 10;
+  }
+  
+  /* -----------------------------------------
+     RÉINITIALISATION ET STYLES DE BASE
+  ----------------------------------------- */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: var(--font-primary);
+    line-height: 1.6;
+  }
+  
+  /* -----------------------------------------
+     CONTENEUR PRINCIPAL DE LA BANNIÈRE
+  ----------------------------------------- */
+  .banner {
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    padding: var(--space-xxl) var(--space-md);
+    background: linear-gradient(135deg, 
+                  var(--color-background-start) 0%, 
+                  var(--color-background-mid) 50%, 
+                  var(--color-background-end) 100%);
+  }
+  
+  /* Overlay sombre */
+  .banner::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* Équivalent à top, right, bottom, left: 0 */
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: var(--z-overlay);
+  }
+  
+  /* Assurer que tout le contenu reste au-dessus de l'overlay */
+  .banner > * {
+    position: relative;
+    z-index: var(--z-content);
+  }
+  
+  /* Container responsive */
+  .container {
     width: 100%;
-    height: 800px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+  
+  /* -----------------------------------------
+     ÉLÉMENTS D'ARRIÈRE-PLAN DÉCORATIFS
+  ----------------------------------------- */
+  .background-elements {
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-background);
+    opacity: 0.2;
+    pointer-events: none; /* Évite de bloquer les interactions */
+  }
+  
+  /* Grille d'arrière-plan */
+  .grid-pattern {
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  /* Points lumineux - avec classe modifieur pour la randomisation */
+  .light-dot {
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Halos lumineux */
+  .light-halo {
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .halo-blue {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(66, 165, 245, 0.4) 0%, rgba(66, 165, 245, 0) 70%);
+    top: -100px;
+    right: -100px;
+  }
+  
+  .halo-purple {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(126, 87, 194, 0.4) 0%, rgba(126, 87, 194, 0) 70%);
+    bottom: -50px;
+    left: -50px;
+  }
+  
+  /* -----------------------------------------
+     BADGE D'EXPERTISE
+  ----------------------------------------- */
+  .expertise-badge {
+    position: absolute;
+    top: var(--space-lg);
+    right: var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* Support Safari */
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    z-index: var(--z-badge);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+  }
+  
+  .expertise-badge:hover {
+    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  /* -----------------------------------------
+     CONTENU PRINCIPAL
+  ----------------------------------------- */
+  .banner-content {
+    text-align: center;
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  /* Animation de fondu à l'entrée */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Titre principal */
+  .banner-title {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+  
+  .highlight {
+    color: var(--color-primary-light);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary-light);
+    transition: width var(--transition-medium);
+  }
+  
+  .banner-title:hover .highlight::after {
+    width: 100%;
+  }
+  
+  /* Séparateur visuel */
+  .separator {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #64b5f6, var(--color-primary));
+    margin: 0 auto;
+    margin-bottom: var(--space-xl);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .separator::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    animation: separator-shine 3s infinite;
+  }
+  
+  @keyframes separator-shine {
+    to {
+      left: 100%;
+    }
+  }
+  
+  /* Sous-titre */
+  .banner-subtitle {
+    font-size: var(--font-size-h5);
+    font-weight: 400;
+    margin-bottom: var(--space-lg);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* -----------------------------------------
+     CARROUSEL DE SOLUTIONS
+  ----------------------------------------- */
+  .solution-carousel {
+    height: 60px;
+    position: relative;
+    margin-bottom: var(--space-xl);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .carousel-item {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-medium), transform var(--transition-medium);
+    color: var(--color-primary-light);
+    font-size: var(--font-size-h6);
+    width: 100%;
+    max-width: 80%;
+    font-weight: 500;
+  }
+  
+  .carousel-item.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Description */
+  .banner-description {
+    margin-bottom: var(--space-xl);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+  }
+  
+  /* -----------------------------------------
+     BOUTONS D'ACTION
+  ----------------------------------------- */
+  .button-container {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Bouton principal */
+  .button-primary {
+    padding: var(--space-md) var(--space-xxl);
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    border: none;
+    font-size: var(--font-size-body);
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 4px 14px rgba(33, 150, 243, 0.3);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .button-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+    transform: translateY(-100%);
+    transition: transform var(--transition-fast);
+  }
+  
+  .button-primary:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+    background-color: #1e88e5; /* Légèrement plus foncé au survol */
+  }
+  
+  .button-primary:hover::before {
+    transform: translateY(0);
+  }
+  
+  .button-primary:active {
+    transform: scale(0.98) translateY(0);
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.4);
+  }
+  
+  /* Bouton secondaire */
+  .button-outlined {
+    padding: var(--space-md) var(--space-xxl);
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-text);
+    font-size: var(--font-size-body);
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+  }
+  
+  .button-outlined:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05) translateY(-2px);
+    border-color: var(--color-primary-light);
+  }
+  
+  .button-outlined:active {
+    transform: scale(0.98) translateY(0);
+  }
+  
+  /* -----------------------------------------
+     INDICATEUR DE DÉFILEMENT
+  ----------------------------------------- */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    animation: bounce 2s infinite;
+    transition: opacity var(--transition-fast);
+  }
+  
+  .scroll-indicator:hover {
+    opacity: 0.8;
+  }
+  
+  .scroll-indicator svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--color-text);
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    40% {
+      transform: translateX(-50%) translateY(-20px);
+    }
+    60% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+  }
+  
+  /* -----------------------------------------
+     MEDIA QUERIES POUR RESPONSIVE
+  ----------------------------------------- */
+  @media (max-width: 768px) {
+    :root {
+      --font-size-h2: 2.25rem;
+      --font-size-h5: 1.25rem;
+    }
+    
+    .banner {
+      padding: var(--space-xl) var(--space-sm);
+    }
+    
+    .button-container {
+      flex-direction: column;
+      gap: var(--space-md);
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    
+    .expertise-badge {
+      top: var(--space-md);
+      right: var(--space-md);
+      padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .separator {
+      margin-bottom: var(--space-lg);
+    }
+    
+    .solution-carousel {
+      height: 80px; /* Plus d'espace pour le texte sur mobile */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    :root {
+      --font-size-h2: 1.75rem;
+      --font-size-h6: 1rem;
+    }
+    
+    .banner-description,
+    .banner-subtitle {
+      padding: 0 var(--space-sm);
+    }
+  }
+  
+  /* -----------------------------------------
+     ANIMATIONS AVANCÉES ET EFFETS
+  ----------------------------------------- */
+  /* Animation pour points lumineux clignotants */
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  
+  .light-dot.animated {
+    animation: twinkle 4s infinite;
+    animation-delay: calc(var(--dot-delay) * 1s);
+  }
+  
+  /* Animation pour halos pulsants */
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.4;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.5;
+    }
+  }
+  
+  .halo-blue {
+    animation: pulse 6s infinite ease-in-out;
+  }
+  
+  .halo-purple {
+    animation: pulse 8s infinite ease-in-out;
+    animation-delay: 2s;
+  }
+  
+  /* Effet de couleur changeante sur séparateur */
+  @keyframes hue-rotate {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      filter: hue-rotate(360deg);
+    }
+  }
+  
+  .separator.animated {
+    animation: hue-rotate 15s infinite linear;
+  }
+  
+  /* Classes utilitaires pour effets */
+  .blur-bg {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+  
+  .glass-effect {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  }

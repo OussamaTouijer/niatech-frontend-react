@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './Navbar.css';
+
 import {
   AppBar,
   Box,
@@ -22,7 +22,7 @@ import {
   Button,
   useTheme,
   useMediaQuery,
-  Badge
+  Badge,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -42,40 +42,54 @@ import {
   Brightness4 as DarkModeIcon,
   Brightness7 as LightModeIcon,
   Language as LanguageIcon,
-  Search as SearchIcon
+  Search as SearchIcon,
 } from '@mui/icons-material';
 
-import logo from "../../assets/images/logo/logoN.png";
-import logoWhite from "../../assets/images/logo/logoB.png"; // Assumant que vous avez une version blanche du logo
+import logo from '../../assets/images/logo/logoN.png';
+import logoWhite from '../../assets/images/logo/logoB.png';
+import './Navbar.css';
 
-// Enrichissement des items de navigation basé sur les services identifiés dans le premier fichier
+
 const navItems = [
-  { 
-    text: 'Accueil', 
-    icon: <HomeIcon />, 
-    path: '/' 
-  },
+  { text: 'Accueil', icon: <HomeIcon />, path: '/' },
   {
     text: 'Services',
     icon: <CodeIcon />,
     dropdown: [
-      { text: 'Développement', icon: <CodeIcon />, path: '/services/developpement', description: 'Solutions logicielles sur mesure' },
-      { text: 'Cloud', icon: <CloudIcon />, path: '/services/cloud', description: 'Migration et optimisation cloud' },
-      { text: 'Sécurité', icon: <SecurityIcon />, path: '/services/securite', description: 'Protection de vos données' },
-      { text: 'Intelligence Artificielle', icon: <AIIcon />, path: '/services/ia', description: 'Solutions d\'IA avancées' },
-      { text: 'Conseil', icon: <ConsultingIcon />, path: '/services/conseil', description: 'Transformation digitale' }
-    ]
+      {
+        text: 'Développement',
+        icon: <CodeIcon />,
+        path: '/services/developpement',
+        description: 'Solutions logicielles sur mesure',
+      },
+      {
+        text: 'Cloud',
+        icon: <CloudIcon />,
+        path: '/services/cloud',
+        description: 'Migration et optimisation cloud',
+      },
+      {
+        text: 'Sécurité',
+        icon: <SecurityIcon />,
+        path: '/services/securite',
+        description: 'Protection de vos données',
+      },
+      {
+        text: 'Intelligence Artificielle',
+        icon: <AIIcon />,
+        path: '/services/ia',
+        description: "Solutions d'IA avancées",
+      },
+      {
+        text: 'Conseil',
+        icon: <ConsultingIcon />,
+        path: '/services/conseil',
+        description: 'Transformation digitale',
+      },
+    ],
   },
-  { 
-    text: 'À propos', 
-    icon: <AboutIcon />, 
-    path: '/about' 
-  },
-  { 
-    text: 'Contact', 
-    icon: <ContactIcon />, 
-    path: '/contact' 
-  }
+  { text: 'À propos', icon: <AboutIcon />, path: '/about' },
+  { text: 'Contact', icon: <ContactIcon />, path: '/contact' },
 ];
 
 const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
@@ -89,12 +103,10 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
   const [languageAnchor, setLanguageAnchor] = useState(null);
   const [currentLanguage, setCurrentLanguage] = useState('FR');
 
-  // Détection de la taille d'écran
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
 
-  // Gestion améliorée du défilement
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY;
     setScrolled(scrollPosition > 20);
@@ -102,8 +114,7 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    
-    // Détection de la page active au chargement
+
     const path = window.location.pathname;
     setActivePath(path);
 
@@ -151,20 +162,17 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
   };
 
   const navigateTo = (path) => {
-    // Simulation de navigation
     console.log(`Navigating to: ${path}`);
     setActivePath(path);
-    // Fermeture des éléments UI
     if (isMobile) handleDrawerToggle();
     handleMenuClose();
   };
 
-  // Drawer pour mobile avec design amélioré
   const drawer = (
     <Box className="drawer-box">
       <Box className="drawer-header">
-        <Avatar 
-          src={darkMode ? logoWhite : logo} 
+        <Avatar
+          src={darkMode ? logoWhite : logo}
           alt="NiaTech Logo"
           className="drawer-avatar"
           sx={{ width: 80, height: 80, borderRadius: '12px', padding: '8px' }}
@@ -180,16 +188,16 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
           </IconButton>
         </Box>
       </Box>
-      
+
       <Divider />
-      
+
       <List className="drawer-list">
         {navItems.map((item) => (
           <React.Fragment key={item.text}>
             {item.dropdown ? (
               <>
                 <ListItem disablePadding>
-                  <ListItemButton 
+                  <ListItemButton
                     className={`drawer-item ${expandedSubmenu === item.text ? 'active' : ''}`}
                     onClick={() => handleSubMenuToggle(item.text)}
                   >
@@ -202,15 +210,12 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                   <List disablePadding>
                     {item.dropdown.map((subItem) => (
                       <ListItem key={subItem.text} disablePadding>
-                        <ListItemButton 
+                        <ListItemButton
                           className={`drawer-item drawer-subitem ${isActive(subItem.path) ? 'active' : ''}`}
                           onClick={() => navigateTo(subItem.path)}
                         >
                           <Box className="drawer-icon">{subItem.icon}</Box>
-                          <ListItemText 
-                            primary={subItem.text} 
-                            secondary={subItem.description}
-                          />
+                          <ListItemText primary={subItem.text} secondary={subItem.description} />
                           <ChevronRight fontSize="small" />
                         </ListItemButton>
                       </ListItem>
@@ -220,7 +225,7 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
               </>
             ) : (
               <ListItem disablePadding>
-                <ListItemButton 
+                <ListItemButton
                   className={`drawer-item ${isActive(item.path) ? 'active' : ''}`}
                   onClick={() => navigateTo(item.path)}
                 >
@@ -232,12 +237,12 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
           </React.Fragment>
         ))}
       </List>
-      
+
       <Box className="drawer-footer">
-        <Button 
-          variant="contained" 
-          color="primary" 
-          fullWidth 
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
           className="cta-button"
           startIcon={<CallIcon />}
           onClick={() => navigateTo('/devis')}
@@ -248,7 +253,6 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
     </Box>
   );
 
-  // Menu de langues
   const languageMenu = (
     <Menu
       anchorEl={languageAnchor}
@@ -267,16 +271,15 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
       </MenuItem>
     </Menu>
   );
-  
-  // Pour le container du Drawer
+
   const container = windowProp !== undefined ? () => windowProp().document.body : undefined;
 
   return (
     <Box className="navbar-root" sx={{ mb: 8 }}>
       <CssBaseline />
-      <AppBar 
-        component="nav" 
-        position="fixed" 
+      <AppBar
+        component="nav"
+        position="fixed"
         className={`app-bar ${scrolled ? 'scrolled' : ''} ${darkMode ? 'dark-mode' : 'light-mode'}`}
         elevation={scrolled ? 4 : 0}
       >
@@ -296,42 +299,39 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
               )}
 
               <Tooltip title="NiaTech - Retour à l'accueil">
-                <Avatar 
+                <Avatar
                   src={darkMode ? logoWhite : logo}
                   alt="NiaTech Logo"
                   className="avatar-desktop"
                   onClick={() => navigateTo('/')}
-                  sx={{ 
+                  sx={{
                     cursor: 'pointer',
                     width: isMobile ? 50 : 160,
                     height: isMobile ? 50 : 55,
                     borderRadius: '12px',
-                    ml: isMobile ? 1 : 0
+                    ml: isMobile ? 1 : 0,
                   }}
                 />
               </Tooltip>
             </Box>
 
-            {/* Menu de navigation version desktop/tablet */}
             {!isMobile && (
-              <Box className="desktop-menu" sx={{ 
-                display: 'flex', 
-                flexGrow: 1, 
-                justifyContent: 'center',
-                gap: isTablet ? 1 : 2
-              }}>
+              <Box
+                className="desktop-menu"
+                sx={{
+                  display: 'flex',
+                  flexGrow: 1,
+                  justifyContent: 'center',
+                  gap: isTablet ? 1 : 2,
+                }}
+              >
                 {navItems.map((item) =>
                   item.dropdown ? (
                     <React.Fragment key={item.text}>
                       <Button
                         onClick={(e) => handleMenuOpen(e, item.text)}
-                        endIcon={<ArrowDownIcon sx={{ 
-                          color: currentMenu === item.text ? '#48BAF0' : 'inherit',
-                          transition: 'transform 0.3s ease',
-                          transform: currentMenu === item.text ? 'rotate(180deg)' : 'rotate(0)'
-                        }} />}
-                        className={`nav-button ${currentMenu === item.text || 
-                          (item.dropdown && item.dropdown.some(sub => isActive(sub.path))) ? 'active' : ''}`}
+                        endIcon={<ArrowDownIcon sx={{ color: currentMenu === item.text ? '#48BAF0' : 'inherit', transition: 'transform 0.3s ease', transform: currentMenu === item.text ? 'rotate(180deg)' : 'rotate(0)' }} />}
+                        className={`nav-button ${currentMenu === item.text || (item.dropdown && item.dropdown.some((sub) => isActive(sub.path))) ? 'active' : ''}`}
                         sx={{
                           fontSize: isTablet ? '0.85rem' : '0.95rem',
                           transition: 'all 0.3s ease',
@@ -345,14 +345,14 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                             height: '3px',
                             backgroundColor: '#48BAF0',
                             transition: 'all 0.3s ease',
-                            transform: 'translateX(-50%)'
+                            transform: 'translateX(-50%)',
                           },
                           '&:hover': {
                             backgroundColor: 'rgba(72, 186, 240, 0.1)',
                             '&:after': {
-                              width: '50%'
-                            }
-                          }
+                              width: '50%',
+                            },
+                          },
                         }}
                       >
                         {item.text}
@@ -363,26 +363,20 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                         onClose={handleMenuClose}
                         TransitionComponent={Fade}
                         className="menu-dropdown"
-                        anchorOrigin={{
-                          vertical: 'bottom',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
                         sx={{
                           '& .MuiPaper-root': {
                             borderRadius: 2,
                             mt: 1.5,
                             boxShadow: '0 8px 16px rgba(0,0,0,0.15)',
-                            minWidth: 220
-                          }
+                            minWidth: 220,
+                          },
                         }}
                       >
                         {item.dropdown.map((subItem) => (
-                          <MenuItem 
-                            key={subItem.text} 
+                          <MenuItem
+                            key={subItem.text}
                             onClick={() => {
                               handleMenuClose();
                               navigateTo(subItem.path);
@@ -394,18 +388,24 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                               alignItems: 'flex-start',
                               borderLeft: isActive(subItem.path) ? '3px solid #48BAF0' : '3px solid transparent',
                               '&:hover': {
-                                backgroundColor: 'rgba(72, 186, 240, 0.08)'
-                              }
+                                backgroundColor: 'rgba(72, 186, 240, 0.08)',
+                              },
                             }}
                           >
-                            <Box sx={{ 
-                              display: 'flex', 
-                              flexDirection: 'column',
-                              ml: 1
-                            }}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                ml: 1,
+                              }}
+                            >
                               <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
-                                <Box className="icon" sx={{ mr: 1, color: '#48BAF0' }}>{subItem.icon}</Box>
-                                <Box component="span" sx={{ fontWeight: 'bold' }}>{subItem.text}</Box>
+                                <Box className="icon" sx={{ mr: 1, color: '#48BAF0' }}>
+                                  {subItem.icon}
+                                </Box>
+                                <Box component="span" sx={{ fontWeight: 'bold' }}>
+                                  {subItem.text}
+                                </Box>
                               </Box>
                               <Box component="span" sx={{ fontSize: '0.75rem', opacity: 0.7 }}>
                                 {subItem.description}
@@ -416,8 +416,8 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                       </Menu>
                     </React.Fragment>
                   ) : (
-                    <Button 
-                      key={item.text} 
+                    <Button
+                      key={item.text}
                       className={`nav-button ${isActive(item.path) ? 'active' : ''}`}
                       onClick={() => navigateTo(item.path)}
                       sx={{
@@ -430,17 +430,17 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                           bottom: 0,
                           left: '50%',
                           width: isActive(item.path) ? '80%' : '0%',
-                          height: '3px', 
+                          height: '3px',
                           backgroundColor: '#48BAF0',
                           transition: 'all 0.3s ease',
-                          transform: 'translateX(-50%)'
+                          transform: 'translateX(-50%)',
                         },
                         '&:hover': {
                           backgroundColor: 'rgba(72, 186, 240, 0.1)',
                           '&:after': {
-                            width: '50%'
-                          }
-                        }
+                            width: '50%',
+                          },
+                        },
                       }}
                     >
                       {item.text}
@@ -450,23 +450,25 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
               </Box>
             )}
 
-            {/* Actions à droite */}
-            <Box className="navbar-actions" sx={{ 
-              display: 'flex', 
-              alignItems: 'center',
-              ml: 'auto', 
-              gap: 1 
-            }}>
+            <Box
+              className="navbar-actions"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                ml: 'auto',
+                gap: 1,
+              }}
+            >
               {!isMobile && (
                 <>
                   <IconButton color="inherit" onClick={toggleSearch}>
                     <SearchIcon />
                   </IconButton>
-                  
+
                   <IconButton color="inherit" onClick={toggleDarkMode}>
                     {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                   </IconButton>
-                  
+
                   <IconButton color="inherit" onClick={handleLanguageMenuOpen}>
                     <Badge badgeContent={currentLanguage} color="primary" sx={{ '& .MuiBadge-badge': { fontSize: '0.65rem' } }}>
                       <LanguageIcon />
@@ -475,40 +477,40 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                 </>
               )}
 
-              <Button 
-                variant="contained" 
-                color="primary" 
+              <Button
+                variant="contained"
+                color="primary"
                 className="cta-button"
                 startIcon={!isMobile && <CallIcon />}
                 onClick={() => navigateTo('/devis')}
                 sx={{
                   px: isMobile ? 2 : 3,
-                  py: 1, 
+                  py: 1,
                   borderRadius: '50px',
                   boxShadow: '0 4px 12px rgba(72, 186, 240, 0.3)',
                   '&:hover': {
                     boxShadow: '0 6px 16px rgba(72, 186, 240, 0.5)',
-                    transform: 'translateY(-2px)'
+                    transform: 'translateY(-2px)',
                   },
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
                 }}
               >
                 {isMobile ? 'Devis' : 'Demander un devis'}
               </Button>
             </Box>
-            
           </Toolbar>
-          
-          {/* Barre de recherche extensible */}
+
           <Collapse in={searchOpen}>
-            <Box sx={{ 
-              py: 2, 
-              display: 'flex',
-              alignItems: 'center',
-              gap: 2
-            }}>
-              <input 
-                type="text" 
+            <Box
+              sx={{
+                py: 2,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+              }}
+            >
+              <input
+                type="text"
                 placeholder="Rechercher un service..."
                 style={{
                   flex: 1,
@@ -518,14 +520,10 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                   outline: 'none',
                   backgroundColor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
                   color: 'inherit',
-                  fontSize: '1rem'
+                  fontSize: '1rem',
                 }}
               />
-              <Button 
-                variant="contained" 
-                color="primary"
-                sx={{ borderRadius: '50px', px: 3 }}
-              >
+              <Button variant="contained" color="primary" sx={{ borderRadius: '50px', px: 3 }}>
                 Rechercher
               </Button>
               <IconButton onClick={toggleSearch}>
@@ -536,7 +534,6 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
         </Container>
       </AppBar>
 
-      {/* Drawer mobile */}
       <Drawer
         container={container}
         variant="temporary"
@@ -544,22 +541,20 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
         onClose={handleDrawerToggle}
         ModalProps={{ keepMounted: true }}
         className="mobile-drawer"
-        PaperProps={{ 
+        PaperProps={{
           className: `drawer-paper ${darkMode ? 'dark-drawer' : 'light-drawer'}`,
-          sx: { 
-            width: '85%', 
+          sx: {
+            width: '85%',
             maxWidth: '320px',
-            borderRadius: '0 16px 16px 0'
-          }
+            borderRadius: '0 16px 16px 0',
+          },
         }}
       >
         {drawer}
       </Drawer>
-      
-      {/* Menu des langues */}
+
       {languageMenu}
-      
-      {/* Espace pour compenser la hauteur de la navbar */}
+
       <Toolbar />
       <Box sx={{ height: searchOpen ? 64 : 0, transition: 'height 0.3s ease' }} />
     </Box>
