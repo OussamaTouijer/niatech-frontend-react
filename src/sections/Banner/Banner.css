@@ -62,14 +62,13 @@
     position: relative;
     overflow: hidden;
     min-height: 500px;
-    display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text);
     padding: var(--space-xxl) var(--space-md);
     background: linear-gradient(135deg, 
-                  var(--color-background-start) 0%, 
-                  var(--color-background-mid) 50%, 
+                  var(--color-background-start) 100%, 
+                  var(--color-background-mid) 100%, 
                   var(--color-background-end) 100%);
   }
   
