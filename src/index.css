@@ -19,3 +19,6 @@
 body{
   background-color: #eaeaea;
 }
+html {
+  scroll-behavior: smooth;
+}

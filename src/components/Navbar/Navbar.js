@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   AppBar,
@@ -48,7 +49,6 @@ import {
 import logo from '../../assets/images/logo/logoN.png';
 import logoWhite from '../../assets/images/logo/logoB.png';
 import './Navbar.css';
-
 
 const navItems = [
   { text: 'Accueil', icon: <HomeIcon />, path: '/' },
@@ -106,6 +106,7 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
+  const navigate = useNavigate();
 
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY;
@@ -114,10 +115,8 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-
     const path = window.location.pathname;
     setActivePath(path);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -162,7 +161,7 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
   };
 
   const navigateTo = (path) => {
-    console.log(`Navigating to: ${path}`);
+    navigate(path);
     setActivePath(path);
     if (isMobile) handleDrawerToggle();
     handleMenuClose();
@@ -330,8 +329,21 @@ const Navbar = ({ window: windowProp, darkMode, toggleDarkMode }) => {
                     <React.Fragment key={item.text}>
                       <Button
                         onClick={(e) => handleMenuOpen(e, item.text)}
-                        endIcon={<ArrowDownIcon sx={{ color: currentMenu === item.text ? '#48BAF0' : 'inherit', transition: 'transform 0.3s ease', transform: currentMenu === item.text ? 'rotate(180deg)' : 'rotate(0)' }} />}
-                        className={`nav-button ${currentMenu === item.text || (item.dropdown && item.dropdown.some((sub) => isActive(sub.path))) ? 'active' : ''}`}
+                        endIcon={
+                          <ArrowDownIcon
+                            sx={{
+                              color: currentMenu === item.text ? '#48BAF0' : 'inherit',
+                              transition: 'transform 0.3s ease',
+                              transform: currentMenu === item.text ? 'rotate(180deg)' : 'rotate(0)',
+                            }}
+                          />
+                        }
+                        className={`nav-button ${
+                          currentMenu === item.text ||
+                          (item.dropdown && item.dropdown.some((sub) => isActive(sub.path)))
+                            ? 'active'
+                            : ''
+                        }`}
                         sx={{
                           fontSize: isTablet ? '0.85rem' : '0.95rem',
                           transition: 'all 0.3s ease',

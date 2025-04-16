@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import './Card.css';
+import './Services.css';
 import RepeatedCards from '../../RepeatedItems/RepeatedCards';
 // Images des services
 import devImage from '../../assets/images/dev.png';
