@@ -1,57 +1,194 @@
-/* Logo et image dans le footer */
-.logo {
-    height: auto;
+/* Footer.css - Enhanced Styles */
+
+/* Variables for Theme Consistency */
+:root {
+  --primary-color: #2a4365;
+  --secondary-color: #4299e1;
+  --accent-color: #48bb78;
+  --text-color: #2d3748;
+  --bg-color: #F4F4F4;
+  --transition-speed: 0.3s;
+  --section-spacing: 2rem;
+}
+
+/* Base Footer Styles */
+footer {
+  padding-top: 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Grid Layout for Responsive Design */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--section-spacing);
+  padding-bottom: var(--section-spacing);
+}
+
+/* Section Common Styles */
+.footer-section {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform var(--transition-speed) ease;
+}
+
+.footer-section:hover {
+  transform: translateY(-5px);
+}
+
+/* Logo Section Enhancements */
+.logo-wrapper img {
+  width: 180px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-hover-effect:hover {
+  transform: rotate(-5deg) scale(1.05);
+}
+
+.logo-description {
+  line-height: 1.75;
+  margin: 1.5rem 0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.logo-description::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+}
+
+/* Social Links Animation */
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+}
+
+.social-link-item {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(66, 153, 225, 0.1);
+  transition: all var(--transition-speed) ease;
+}
+
+.social-link-item:hover {
+  background: var(--secondary-color);
+  transform: scale(1.1) rotate(15deg);
+}
+
+.social-link-item i {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+}
+
+.social-link-item:hover i {
+  color: white;
+}
+
+/* Contact Section Styling */
+.contact-item {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.contact-item:hover {
+  background-color: rgba(66, 153, 225, 0.05);
+}
+
+.contact-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-icon i {
+  color: white;
+  font-size: 1rem;
+}
+
+/* Link Animations */
+.link-hover-effect {
+  position: relative;
+  padding: 0.25rem 0;
+  display: inline-block;
+}
+
+.link-hover-effect::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-color);
+  transition: width var(--transition-speed) ease;
+}
+
+.link-hover-effect:hover::after {
+  width: 100%;
+}
+
+/* Copyright Section */
+.copyright-section {
+  text-align: center;
+  padding-top: var(--section-spacing);
+  margin-top: var(--section-spacing);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.developer-name {
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+/* Academic Note: CSS Grid Fallback */
+@supports not (display: grid) {
+  .footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
-  .logo-img {
-    width: 4.5rem;
-    height: auto;
-    margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
   }
   
-  /* Style principal du footer */
-  .footer {
-    padding-top: 70px;
-    padding-bottom: 30px;
-    background-color: #f8f9fa; /* Vous pouvez modifier cette couleur de fond pour mieux correspondre à votre charte */
+  .footer-section {
+    margin-bottom: 1.5rem;
   }
   
-  /* Texte du logo */
-  .footer .logo p {
-    color: var(--text-color, #333);
+  .logo-wrapper img {
+    width: 140px;
   }
-  
-  /* Liens des réseaux sociaux */
-  .social__links span a {
-    text-decoration: none;
-    color: var(--heading-color, #000);
-    font-size: 1.2rem;
-  }
-  
-  /* Titres des sections du footer */
-  .footer__link-title {
-    color: var(--heading-color, #000);
-    margin-bottom: 1rem;
-  }
-  
-  /* Liens de navigation rapide */
-  .footer__quick-links a {
-    text-decoration: none;
-    color: var(--text-color, #333);
-    font-size: 1.1rem;
-  }
-  
-  /* Icônes dans les titres des sections */
-  .footer__quick-links h6 span i {
-    color: var(--secondary-color, #6c757d);
-    font-size: 1.1rem;
-  }
-  
-  /* Copyright */
-  .copyright {
-    color: var(--text-color, #333);
-    font-size: 1rem;
-  }
-  .copyright span {
-    color: var(--secondary-color, #6c757d);
-  }
-  
+}
