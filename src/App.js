@@ -6,6 +6,7 @@ import Container from './components/Container/Container';
 import Card from './sections/Card/Card'; 
 import Banner from './sections/Banner/Banner';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Contact from './sections/Contact/Contact';
 
 
 
@@ -79,6 +80,7 @@ function App() {
         <Card/>
 
 
+<Contact/>
       </Container>   
       <Footer socialLinks={socialLinks} quickLinks={quickLinks} contactInfo={contactInfo} year={new Date().getFullYear()} />  
         </div>
