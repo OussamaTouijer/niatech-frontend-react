@@ -147,10 +147,10 @@ export default function Card() {
       </div>
 
       {/* Appel à l'action */}
-      <div className="services-cta">
+      {/* <div className="services-cta">
         <p>Besoin d'un service spécifique pour votre entreprise ?</p>
         <button className="cta-button">Demander un devis personnalisé</button>
-      </div>
+      </div> */}
     </div>
   );
 }

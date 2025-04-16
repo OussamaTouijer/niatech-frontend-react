@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import footerLogo from '../../assets/images/logo/logoN.png';
 import './Footer.css';
 
+
+
 const Footer = ({ socialLinks, quickLinks, contactInfo, year }) => {
   return (
     <footer className="pt-16 pb-8 px-12" role="contentinfo">
